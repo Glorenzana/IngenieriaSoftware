@@ -1,0 +1,43 @@
+﻿@model GestionProyectos.Models.LOGIN
+
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<style>
+    h3 {
+        font-variant-ligatures: normal;
+    }
+</style>
+<div class="row">
+    <div class="jumbotron">
+        <div class="col-md-12">
+            <div class="col-md-2">
+                <img src="~/Imagenes/icono.png" width="100" style="border-radius: 50%" height="100" />
+            </div>
+            <div class="col-md-10">
+                <h2>Gestion de Proyectos UMG</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    @using (Html.BeginForm("Autenticar", "Home", FormMethod.Post))
+    {
+        <div class="col-md-6  jumbotron z-depth-3" style="text-align:left">
+            <div class="col-md-12 input-field col s12">
+                @Html.TextBoxFor(m => m.USUARIO, "Usuario") <label for="usuario">Usuario</label>
+
+            </div>
+            <div class="col-md-12 input-field col s12">
+                @Html.PasswordFor(m => m.CONTRASEÑA, "Contrasena") <label for="contresena">Contraseña</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <button class="pure-material-button-contained">Ingresar</button>
+        </div>
+    }
+</div>

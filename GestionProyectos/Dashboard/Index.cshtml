@@ -1,0 +1,554 @@
+﻿@model GestionProyectos.Models.Dashboard
+@{
+    ViewBag.Title = "Dashboard";
+}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawChart);
+    google.setOnLoadCallback(drawChartProyecto);
+    google.setOnLoadCallback(drawChartRequerimientos);
+    google.setOnLoadCallback(drawChartProyectoTecnicos);
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart() {
+        $.ajax({
+            type: "POST",
+            url: "/Dashboard/ConjuntoTareas",
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                //var data = google.visualization.arrayToDataTable(r);
+
+                ////Pie
+                //var options = {
+                //    title: 'Aceptacion de las promociones'
+                //};
+
+                // Create the data table.
+                var data = google.visualization.arrayToDataTable(r);
+
+
+
+                // Set chart options
+                var options = {
+                    'title': 'Cantidad de tipos de tareas',
+                    'width': 500,
+                    'height': 250
+                };
+
+                //var chart = new google.visualization.PieChart($("#chart")[0]);
+                //chart.draw(data, options);
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+                var div = document.getElementById('loader');
+                div.style.display = div.style.display == "none" ? "block" : "none";
+            },
+            failure: function (r) {
+                alert(r.d);
+            },
+            error: function (r) {
+                alert(r.d);
+            }
+        });
+    }
+
+
+    function drawChartProyecto() {
+        $.ajax({
+            type: "POST",
+            url: "/Dashboard/ConjuntoProyectos",
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                //var data = google.visualization.arrayToDataTable(r);
+
+                ////Pie
+                //var options = {
+                //    title: 'Aceptacion de las promociones'
+                //};
+
+                // Create the data table.
+                var data = google.visualization.arrayToDataTable(r);
+
+
+
+                // Set chart options
+                var options = {
+                    'title': 'Estado de los proyectos',
+                    'width': 400,
+                    'height': 300
+                };
+
+                //var chart = new google.visualization.PieChart($("#chart")[0]);
+                //chart.draw(data, options);
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.PieChart(document.getElementById('chartProyecto_div'));
+                chart.draw(data, options);
+            },
+            failure: function (r) {
+                alert(r.d);
+            },
+            error: function (r) {
+                alert(r.d);
+            }
+        });
+    }
+
+    function drawChartRequerimientos() {
+        $.ajax({
+            type: "POST",
+            url: "/Dashboard/ConjuntoRequerimientos",
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                //var data = google.visualization.arrayToDataTable(r);
+
+                ////Pie
+                //var options = {
+                //    title: 'Aceptacion de las promociones'
+                //};
+
+                // Create the data table.
+                var data = google.visualization.arrayToDataTable(r);
+
+
+
+                // Set chart options
+                var options = {
+                    'title': 'Estado de las actividades',
+                    'width': 400,
+                    'height': 300
+                };
+
+                //var chart = new google.visualization.PieChart($("#chart")[0]);
+                //chart.draw(data, options);
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.PieChart(document.getElementById('chartRequerimiento_div'));
+                chart.draw(data, options);
+            },
+            failure: function (r) {
+                alert(r.d);
+            },
+            error: function (r) {
+                alert(r.d);
+            }
+        });
+    }
+
+    function drawChartProyectoTecnicos() {
+        $.ajax({
+            type: "POST",
+            url: "/Dashboard/ConjuntoProyectoTecnico",
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                //var data = google.visualization.arrayToDataTable(r);
+
+                ////Pie
+                //var options = {
+                //    title: 'Aceptacion de las promociones'
+                //};
+
+                // Create the data table.
+                var data = google.visualization.arrayToDataTable(r);
+
+
+
+                // Set chart options
+                var options = {
+                    'title': 'Estado de los técnicos',
+                    'width': 400,
+                    'height': 300
+                };
+
+                //var chart = new google.visualization.PieChart($("#chart")[0]);
+                //chart.draw(data, options);
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.PieChart(document.getElementById('chartProyectoTecnico_div'));
+                chart.draw(data, options);
+
+
+
+                //document.getElementById('loader').style.visibility = "none";
+            },
+            failure: function (r) {
+                alert(r.d);
+            },
+            error: function (r) {
+                alert(r.d);
+            }
+        });
+    }
+
+</script>
+<style>
+    h3 {
+        font-variant-ligatures: normal;
+    }
+</style>
+<div class="row">
+    <input type="hidden" id="mode" />
+    <div class="jumbotron">
+        <div class="col-md-12">
+            <div class="col-md-2">
+                <img src="~/Imagenes/icono.png" width="100" style="border-radius: 50%" height="100" />
+            </div>
+            <div class="col-md-10">
+                <h3><strong>Dashboard</strong> - Control y Gestion de Tareas y Proyectos</h3>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row" id="loader" style="text-align:center">
+    <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-red-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="row">
+        <div class="col-md-6" id="chart_div"></div>
+    </div>
+
+    <div class="row">
+
+        <div style="background-color: #D4E6F1; color: #273746;">
+            <div class="col-md-11"><h4><strong>Listado de tareas solicitadas</strong></h4></div>
+            <a id="activarTarea" class="pulse btn-floating btn-small btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+
+        </div>
+        <table class="striped z-depth-3">
+            <tbody>
+                <tr>
+                    <td><strong>Usuario</strong></td>
+                    <td><strong>Tarea</strong></td>
+                    <td><strong>Tipo</strong></td>
+                    <td><strong>Prioridad</strong></td>
+                    <td><strong>días</strong></td>
+                    <td><strong>Estado</strong></td>
+                    <td> </td>
+                </tr>
+                @foreach (var tarea in Model.TAREA)
+                {
+                    using (Html.BeginForm("actualizarEstadoTarea", "Dashboard", FormMethod.Post))
+                    {
+                        <tr style="height:45px">
+                            @Html.TextBoxFor(modelo => tarea.ID_TAREA, new { style = "display: none;" })
+                            <td>@Html.DisplayFor(modelo => tarea.PLANILLA_RRHH.NOMBRES)</td>
+                            <td>@Html.DisplayFor(modelo => tarea.DESC_TAREA)</td>
+                            <td>@Html.DisplayFor(modelo => tarea.CAT_TIP_REQUERIMIENTO.DESC_REQUERIMIENTO)</td>
+                            @if (tarea.ID_PRIORIDAD == 3)
+                            {
+                                <td style="color:red">@Html.DisplayFor(modelo => tarea.CAT_PRIORIDAD.DESC_PRIORIDAD)</td>
+                            }
+                            else
+                            {
+                                <td>@Html.DisplayFor(modelo => tarea.CAT_PRIORIDAD.DESC_PRIORIDAD)</td>
+
+                            }
+                            <td>@Html.DisplayFor(modelo => DateTime.Now.AddDays(-Convert.ToDateTime(tarea.TIEMPO).Day).Day)</td>
+                            @if (tarea.ID_ESTADO == 5)
+                            {
+                                <td style="background-color:lightgreen"><strong>@Html.DropDownListFor(modelo => tarea.ID_ESTADO, new SelectList(ViewBag.EstadosTarea, "Value", "Text", tarea.ID_ESTADO), new { @class = "browser-default" })</strong></td>
+                            }
+                            else if (tarea.ID_ESTADO == 1)
+                            {
+                                <td style="background-color:lightyellow"><strong>@Html.DropDownListFor(modelo => tarea.ID_ESTADO, new SelectList(ViewBag.EstadosTarea, "Value", "Text", tarea.ID_ESTADO), new { @class = "browser-default" })</strong></td>
+                            }
+                            else
+                            {
+                                <td style="background-color:khaki"><strong>@Html.DropDownListFor(modelo => tarea.ID_ESTADO, new SelectList(ViewBag.EstadosTarea, "Value", "Text", tarea.ID_ESTADO), new { @class = "browser-default" })</strong></td>
+                            }
+                            <td>
+                                <button class="btn btn-floating btn-small btn-large waves-effect waves-light" type="submit" name="action">
+                                    <i class="material-icons right">edit</i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        <div class="row" id="cajaNuevaTarea" style="display:none">
+            @using (Html.BeginForm("AgregarTarea", "Dashboard", FormMethod.Post))
+            {
+
+                <div class="col-md-12">
+                    <table class="z-depth-3">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>Tipo</strong>
+                                </td>
+                                <td>
+                                    <strong>Prioridad</strong>
+                                </td>
+                                <td>
+                                    <strong>Descripcion</strong>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DropDownList("TipoTarea", new SelectList(ViewBag.TipoTarea, "Value", "Text"), new { @class = "browser-default" })
+                                </td>
+                                <td>
+                                    @Html.DropDownList("Prioridad", new SelectList(ViewBag.Prioridades, "Value", "Text"), new { @class = "browser-default" })
+                                </td>
+                                <td>
+                                    <div class="col-md-12 input-field col s12">
+                                        @Html.TextBox("Descripcion", " ")
+
+                                    </div>
+                                </td>
+                                <td>
+                                    <button class="btn btn-floating btn-small btn-large waves-effect waves-light" type="submit" name="action">
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            }
+
+        </div>
+    </div>
+
+
+
+
+    @*PerfilAdministrador*@
+    @if (Session["rol"] != null && Session["rol"].ToString() == "1")
+    {
+
+        <div class="row">
+            <div class="col-md-6" id="chartProyecto_div"></div>
+            <div class="col-md-6" id="chartProyectoTecnico_div"></div>
+        </div>
+        <div class="row">
+            <div style="background-color: #D4E6F1; color: #273746 ">
+                <div class="col-md-11"><h4><strong>Proyectos</strong></h4></div>
+                <a id="activarProyecto" class="btn-floating btn-small btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+            </div>
+            <table class="striped z-depth-3">
+                <tbody>
+                    <tr>
+                        <td><strong>Proyecto</strong></td>
+                        <td><strong>Proceso</strong></td>
+                        <td><strong>Tecnico Asignado</strong></td>
+                        <td><strong>días</strong></td>
+                        <td></td>
+                    </tr>
+                    @foreach (var proyecto in Model.PROYECTO)
+                    {
+                        using (Html.BeginForm("actualizarProyecto", "Dashboard", FormMethod.Post))
+                        {
+                            <tr style="height:45px">
+                                @Html.TextBoxFor(modelo => proyecto.ID_PROYECTO, new { style = "display: none;" })
+                                <td>@Html.DisplayFor(modelo => proyecto.DESC_PROYECTO)</td>
+                                @if (proyecto.ESTADO_ID_ESTADO == 5)
+                                {
+                                    <td style="background-color:lightgreen"><strong>@Html.DropDownListFor(modelo => proyecto.ESTADO_ID_ESTADO, new SelectList(ViewBag.EstadosTarea, "Value", "Text", proyecto.ESTADO_ID_ESTADO), new { @class = "browser-default" })</strong></td>
+                                }
+                                else if (proyecto.ESTADO_ID_ESTADO == 1)
+                                {
+                                    <td style="background-color:lightyellow"><strong>@Html.DropDownListFor(modelo => proyecto.ESTADO_ID_ESTADO, new SelectList(ViewBag.EstadosTarea, "Value", "Text", proyecto.ESTADO_ID_ESTADO), new { @class = "browser-default" })</strong></td>
+                                }
+                                else
+                                {
+                                    <td style="background-color:khaki"><strong>@Html.DropDownListFor(modelo => proyecto.ESTADO_ID_ESTADO, new SelectList(ViewBag.EstadosTarea, "Value", "Text", proyecto.ESTADO_ID_ESTADO), new { @class = "browser-default" })</strong></td>
+                                }
+                                <td><strong>@Html.DropDownListFor(modelo => proyecto.TECNICO_ID_TECNICO, new SelectList(ViewBag.Tecnicos, "Value", "Text", proyecto.TECNICO_ID_TECNICO), new { @class = "browser-default" })</strong></td>
+                                @*--<td>@Html.DisplayFor(modelo => proyecto.TECNICO.PLANILLA_RRHH.NOMBRES)</td>*@
+                                <td>@Html.DisplayFor(modelo => DateTime.Now.AddDays(-Convert.ToDateTime(proyecto.TIEMPO).Day).Day)</td>
+                                <td>
+                                    <button class="btn btn-floating btn-small btn-large waves-effect waves-light" type="submit" name="action">
+                                        <i class="material-icons right">edit</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
+            <div class="row" id="cajaNuevaProyecto" style="display:none">
+                @using (Html.BeginForm("AgregarProyecto", "Dashboard", FormMethod.Post))
+                {
+
+                    <div class="col-md-12">
+                        <table class="z-depth-3">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>Técnico</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Detalle</strong>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.DropDownList("Tecnico", new SelectList(ViewBag.Tecnicos, "Value", "Text"), new { @class = "browser-default" })
+                                    </td>
+                                    <td>
+                                        <div class="col-md-12 input-field col s12">
+                                            @Html.TextBox("Descripcion", " ")
+
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-floating btn-small btn-large waves-effect waves-light" type="submit" name="action">
+                                            <i class="material-icons right">send</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+    }
+
+
+
+
+
+    @if (Session["rol"] != null && Session["rol"].ToString() == "1" || Session["rol"].ToString() == "2")
+    {
+        @*PerfilTecnico*@
+        <div class="row">
+            <div class="col-md-6" id="chartRequerimiento_div"></div>
+        </div>
+        <div class="row">
+            <div style="background-color: #D4E6F1; color: #273746 ">
+                <div class="col-md-11"><h4><strong>Solicitud de requerimientos</strong></h4></div>
+                <a id="activarRequerimiento" class="btn-floating btn-small btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+            </div>
+            <table class="striped z-depth-3">
+                <tbody>
+                    <tr>
+                        <td><strong>Tecnico Asignado</strong></td>
+                        <td><strong>Proyecto</strong></td>
+                        <td><strong>Descripcion</strong></td>
+                        <td><strong>Estado</strong></td>
+                        <td></td>
+                    </tr>
+                    @foreach (var requerimiento in Model.REQUERIMIENTO)
+                    {
+                        using (Html.BeginForm("actualizarRequerimiento", "Dashboard", FormMethod.Post))
+                        {
+                            <tr style="height:45px">
+                                @Html.TextBoxFor(modelo => requerimiento.ID_TAREA, new { style = "display: none;" })
+                                <td>@Html.DisplayFor(modelo => requerimiento.PROYECTO.TECNICO.PLANILLA_RRHH.NOMBRES)</td>
+                                <td>@Html.DisplayFor(modelo => requerimiento.PROYECTO.DESC_PROYECTO)</td>
+                                <td>@Html.DisplayFor(modelo => requerimiento.DESC_TAREA)</td>
+                                @if (requerimiento.ESTADO_ID_ESTADO == 5)
+                                {
+                                    <td style="background-color:lightgreen"><strong>@Html.DropDownListFor(modelo => requerimiento.ESTADO_ID_ESTADO, new SelectList(ViewBag.EstadosTarea, "Value", "Text", requerimiento.ESTADO_ID_ESTADO), new { @class = "browser-default" })</strong></td>
+                                }
+                                else if (requerimiento.ESTADO_ID_ESTADO == 1)
+                                {
+                                    <td style="background-color:lightyellow"><strong>@Html.DropDownListFor(modelo => requerimiento.ESTADO_ID_ESTADO, new SelectList(ViewBag.EstadosTarea, "Value", "Text", requerimiento.ESTADO_ID_ESTADO), new { @class = "browser-default" })</strong></td>
+                                }
+                                else
+                                {
+                                    <td style="background-color:khaki"><strong>@Html.DropDownListFor(modelo => requerimiento.ESTADO_ID_ESTADO, new SelectList(ViewBag.EstadosTarea, "Value", "Text", requerimiento.ESTADO_ID_ESTADO), new { @class = "browser-default" })</strong></td>
+                                }
+                                <td>
+                                    <button class="btn btn-floating btn-small btn-large waves-effect waves-light" type="submit" name="action">
+                                        <i class="material-icons right">edit</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+
+
+            <div class="row" id="cajaNuevaRequerimiento" style="display:none">
+                @using (Html.BeginForm("AgregarRequerimiento", "Dashboard", FormMethod.Post))
+                {
+
+                    <div class="col-md-12">
+                        <table class="z-depth-3">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>Técnico</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Detalle</strong>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.DropDownList("Proyecto", new SelectList(ViewBag.Proyectos, "Value", "Text"), new { @class = "browser-default" })
+                                    </td>
+                                    <td>
+                                        <div class="col-md-12 input-field col s12">
+                                            @Html.TextBox("Descripcion", " ")
+
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-floating btn-small btn-large waves-effect waves-light" type="submit" name="action">
+                                            <i class="material-icons right">send</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+    }
+
+    <script>
+        document.getElementById("activarTarea").addEventListener('click', function (e) {
+            document.getElementById("cajaNuevaTarea").style.display = "block";
+        });
+
+        document.getElementById("activarRequerimiento").addEventListener('click', function (e) {
+            document.getElementById("cajaNuevaRequerimiento").style.display = "block";
+        });
+
+        document.getElementById("activarProyecto").addEventListener('click', function (e) {
+            document.getElementById("cajaNuevaProyecto").style.display = "block";
+        });
+    </script>
