@@ -1,0 +1,334 @@
+﻿@model GestionProyectos.Models.Dashboard
+@{
+    ViewBag.Title = "Dashboard";
+}
+<style>
+    h3 {
+        font-variant-ligatures: normal;
+    }
+</style>
+<div class="row">
+    <div class="jumbotron">
+        <div class="col-md-12">
+            <div class="col-md-2">
+                <img src="~/Imagenes/icono.png" width="100" style="border-radius: 50%" height="100" />
+            </div>
+            <div class="col-md-10">
+                <h3><strong>Dashboard</strong> - Control y Gestion de Tareas y Proyectos</h3>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div style="background-color: #D4E6F1; color: #273746;">
+        <div class="col-md-11"><h4><strong>Listado de tareas solicitadas</strong></h4></div>
+        <a id="activarTarea" name="activarTarea" class="btn-floating btn-small btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+
+    </div>
+    <table class="striped">
+        <tbody>
+            <tr>
+                <td><strong>Usuario</strong></td>
+                <td><strong>Tarea</strong></td>
+                <td><strong>Tipo</strong></td>
+                <td><strong>Prioridad</strong></td>
+                <td><strong>días</strong></td>
+                <td><strong>Estado</strong></td>
+                <td> </td>
+            </tr>
+            @foreach (var tarea in Model.TAREA)
+            {
+                using (Html.BeginForm("actualizarEstadoTarea", "Dashboard", FormMethod.Post))
+                {
+                    <tr style="height:45px">
+                        @Html.TextBoxFor(modelo => tarea.ID_TAREA, new { style = "display: none;" })
+                        <td>@Html.DisplayFor(modelo => tarea.PLANILLA_RRHH.NOMBRES)</td>
+                        <td>@Html.DisplayFor(modelo => tarea.DESC_TAREA)</td>
+                        <td>@Html.DisplayFor(modelo => tarea.CAT_TIP_REQUERIMIENTO.DESC_REQUERIMIENTO)</td>
+                        @if (tarea.ID_PRIORIDAD == 3)
+                        {
+                            <td style="color:red">@Html.DisplayFor(modelo => tarea.CAT_PRIORIDAD.DESC_PRIORIDAD)</td>
+                        }
+                        else
+                        {
+                            <td>@Html.DisplayFor(modelo => tarea.CAT_PRIORIDAD.DESC_PRIORIDAD)</td>
+
+                        }
+                        <td>@Html.DisplayFor(modelo => DateTime.Now.AddDays(-Convert.ToDateTime(tarea.TIEMPO).Day).Day)</td>
+                        @if (tarea.ID_ESTADO == 5)
+                        {
+                            <td style="background-color:lightgreen"><strong>@Html.DropDownListFor(modelo => tarea.ID_ESTADO, new SelectList(ViewBag.EstadosTarea, "Value", "Text", tarea.ID_ESTADO), new { @class = "browser-default" })</strong></td>
+                        }
+                        else if (tarea.ID_ESTADO == 1)
+                        {
+                            <td style="background-color:lightyellow"><strong>@Html.DropDownListFor(modelo => tarea.ID_ESTADO, new SelectList(ViewBag.EstadosTarea, "Value", "Text", tarea.ID_ESTADO), new { @class = "browser-default" })</strong></td>
+                        }
+                        else
+                        {
+                            <td style="background-color:khaki"><strong>@Html.DropDownListFor(modelo => tarea.ID_ESTADO, new SelectList(ViewBag.EstadosTarea, "Value", "Text", tarea.ID_ESTADO), new { @class = "browser-default" })</strong></td>
+                        }
+                        <td>
+                            <button class="btn btn-floating btn-small btn-large waves-effect waves-light" type="submit" name="action">
+                                <i class="material-icons right">edit</i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <div class="row" id="cajaNuevaTarea" style="display:none">
+        @using (Html.BeginForm("AgregarTarea", "Dashboard", FormMethod.Post))
+        {
+
+            <div class="col-md-12">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>Tipo</strong>
+                            </td>
+                            <td>
+                                <strong>Prioridad</strong>
+                            </td>
+                            <td>
+                                <strong>Descripcion</strong>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DropDownList("TipoTarea", new SelectList(ViewBag.TipoTarea, "Value", "Text"), new { @class = "browser-default" })
+                            </td>
+                            <td>
+                                @Html.DropDownList("Prioridad", new SelectList(ViewBag.Prioridades, "Value", "Text"), new { @class = "browser-default" })
+                            </td>
+                            <td>
+                                <div class="col-md-12 input-field col s12">
+                                    @Html.TextBox("Descripcion", " ")
+
+                                </div>
+                            </td>
+                            <td>
+                                <button class="btn btn-floating btn-small btn-large waves-effect waves-light" type="submit" name="action">
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        }
+
+    </div>
+</div>
+
+
+
+
+@*PerfilAdministrador*@
+@if (Session["rol"] != null && Session["rol"].ToString() == "1")
+{
+    <div class="row">
+        <div style="background-color: #D4E6F1; color: #273746 ">
+            <div class="col-md-11"><h4><strong>Proyectos</strong></h4></div>
+            <a id="activarProyecto" class="btn-floating btn-small btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+        </div>
+        <table class="striped">
+            <tbody>
+                <tr>
+                    <td><strong>Proyecto</strong></td>
+                    <td><strong>Proceso</strong></td>
+                    <td><strong>Tecnico Asignado</strong></td>
+                    <td><strong>días</strong></td>
+                    <td></td>
+                </tr>
+                @foreach (var proyecto in Model.PROYECTO)
+                {
+                    using (Html.BeginForm("actualizarProyecto", "Dashboard", FormMethod.Post))
+                    {
+                        <tr style="height:45px">
+                            @Html.TextBoxFor(modelo => proyecto.ID_PROYECTO, new { style = "display: none;" })
+                            <td>@Html.DisplayFor(modelo => proyecto.DESC_PROYECTO)</td>
+                            @if (proyecto.ESTADO_ID_ESTADO == 5)
+                            {
+                                <td style="background-color:lightgreen"><strong>@Html.DropDownListFor(modelo => proyecto.ESTADO_ID_ESTADO, new SelectList(ViewBag.EstadosTarea, "Value", "Text", proyecto.ESTADO_ID_ESTADO), new { @class = "browser-default" })</strong></td>
+                            }
+                            else if (proyecto.ESTADO_ID_ESTADO == 1)
+                            {
+                                <td style="background-color:lightyellow"><strong>@Html.DropDownListFor(modelo => proyecto.ESTADO_ID_ESTADO, new SelectList(ViewBag.EstadosTarea, "Value", "Text", proyecto.ESTADO_ID_ESTADO), new { @class = "browser-default" })</strong></td>
+                            }
+                            else
+                            {
+                                <td style="background-color:khaki"><strong>@Html.DropDownListFor(modelo => proyecto.ESTADO_ID_ESTADO, new SelectList(ViewBag.EstadosTarea, "Value", "Text", proyecto.ESTADO_ID_ESTADO), new { @class = "browser-default" })</strong></td>
+                            }
+                            <td><strong>@Html.DropDownListFor(modelo => proyecto.TECNICO_ID_TECNICO, new SelectList(ViewBag.Tecnicos, "Value", "Text", proyecto.TECNICO_ID_TECNICO), new { @class = "browser-default" })</strong></td>
+                            @*--<td>@Html.DisplayFor(modelo => proyecto.TECNICO.PLANILLA_RRHH.NOMBRES)</td>*@
+                            <td>@Html.DisplayFor(modelo => DateTime.Now.AddDays(-Convert.ToDateTime(proyecto.TIEMPO).Day).Day)</td>
+                            <td>
+                                <button class="btn btn-floating btn-small btn-large waves-effect waves-light" type="submit" name="action">
+                                    <i class="material-icons right">edit</i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        <div class="row" id="cajaNuevaProyecto" style="display:none">
+            @using (Html.BeginForm("AgregarProyecto", "Dashboard", FormMethod.Post))
+            {
+
+                <div class="col-md-12">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>Técnico</strong>
+                                </td>
+                                <td>
+                                    <strong>Detalle</strong>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DropDownList("Tecnico", new SelectList(ViewBag.Tecnicos, "Value", "Text"), new { @class = "browser-default" })
+                                </td>
+                                <td>
+                                    <div class="col-md-12 input-field col s12">
+                                        @Html.TextBox("Descripcion", " ")
+
+                                    </div>
+                                </td>
+                                <td>
+                                    <button class="btn btn-floating btn-small btn-large waves-effect waves-light" type="submit" name="action">
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+}
+
+
+
+
+
+@if (Session["rol"] != null && Session["rol"].ToString() == "1" || Session["rol"].ToString() == "2")
+{
+    @*PerfilTecnico*@
+<div class="row">
+    <div style="background-color: #D4E6F1; color: #273746 ">
+        <div class="col-md-11"><h4><strong>Solicitud de requerimientos</strong></h4></div>
+        <a id="activarRequerimiento" class="btn-floating btn-small btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+    </div>
+    <table class="striped">
+        <tbody>
+            <tr>
+                <td><strong>Tecnico Asignado</strong></td>
+                <td><strong>Proyecto</strong></td>
+                <td><strong>Descripcion</strong></td>
+                <td><strong>Estado</strong></td>
+                <td></td>
+            </tr>
+            @foreach (var requerimiento in Model.REQUERIMIENTO)
+            {
+                using (Html.BeginForm("actualizarRequerimiento", "Dashboard", FormMethod.Post))
+                {
+                    <tr style="height:45px">
+                        @Html.TextBoxFor(modelo => requerimiento.ID_TAREA, new { style = "display: none;" })
+                        <td>@Html.DisplayFor(modelo => requerimiento.PROYECTO.TECNICO.PLANILLA_RRHH.NOMBRES)</td>
+                        <td>@Html.DisplayFor(modelo => requerimiento.PROYECTO.DESC_PROYECTO)</td>
+                        <td>@Html.DisplayFor(modelo => requerimiento.DESC_TAREA)</td>
+                        @if (requerimiento.ESTADO_ID_ESTADO == 5)
+                        {
+                            <td style="background-color:lightgreen"><strong>@Html.DropDownListFor(modelo => requerimiento.ESTADO_ID_ESTADO, new SelectList(ViewBag.EstadosTarea, "Value", "Text", requerimiento.ESTADO_ID_ESTADO), new { @class = "browser-default" })</strong></td>
+                        }
+                        else if (requerimiento.ESTADO_ID_ESTADO == 1)
+                        {
+                            <td style="background-color:lightyellow"><strong>@Html.DropDownListFor(modelo => requerimiento.ESTADO_ID_ESTADO, new SelectList(ViewBag.EstadosTarea, "Value", "Text", requerimiento.ESTADO_ID_ESTADO), new { @class = "browser-default" })</strong></td>
+                        }
+                        else
+                        {
+                            <td style="background-color:khaki"><strong>@Html.DropDownListFor(modelo => requerimiento.ESTADO_ID_ESTADO, new SelectList(ViewBag.EstadosTarea, "Value", "Text", requerimiento.ESTADO_ID_ESTADO), new { @class = "browser-default" })</strong></td>
+                        }
+                        <td>
+                            <button class="btn btn-floating btn-small btn-large waves-effect waves-light" type="submit" name="action">
+                                <i class="material-icons right">edit</i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+
+            }
+        </tbody>
+    </table>
+
+
+    <div class="row" id="cajaNuevaRequerimiento" style="display:none">
+        @using (Html.BeginForm("AgregarRequerimiento", "Dashboard", FormMethod.Post))
+        {
+
+            <div class="col-md-12">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>Técnico</strong>
+                            </td>
+                            <td>
+                                <strong>Detalle</strong>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DropDownList("Proyecto", new SelectList(ViewBag.Proyectos, "Value", "Text"), new { @class = "browser-default" })
+                            </td>
+                            <td>
+                                <div class="col-md-12 input-field col s12">
+                                    @Html.TextBox("Descripcion", " ")
+
+                                </div>
+                            </td>
+                            <td>
+                                <button class="btn btn-floating btn-small btn-large waves-effect waves-light" type="submit" name="action">
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        }
+
+    </div>
+
+</div>
+}
+
+<script>
+    document.getElementById("activarRequerimiento").addEventListener('click', function (e) {
+        document.getElementById("cajaNuevaRequerimiento").style.display = "block";
+    })
+    document.getElementById("activarTarea").addEventListener('click', function (e) {
+        document.getElementById("cajaNuevaTarea").style.display = "block";
+    })
+    document.getElementById("activarProyecto").addEventListener('click', function (e) {
+        document.getElementById("cajaNuevaProyecto").style.display = "block";
+    })
+</script>
