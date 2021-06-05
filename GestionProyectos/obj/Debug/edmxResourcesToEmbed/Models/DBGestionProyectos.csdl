@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GestionProyectosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CAT_DEPARTAMENTO">
+    <Key>
+      <PropertyRef Name="ID_CAT_DEPARTAMENTO" />
+    </Key>
+    <Property Name="ID_CAT_DEPARTAMENTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DESC_DEPARTAMENTO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CAT_PUESTO_TRABAJO" Relationship="Self.FK_DEPARTAMENTO_PUESTO" FromRole="CAT_DEPARTAMENTO" ToRole="CAT_PUESTO_TRABAJO" />
+  </EntityType>
+  <EntityType Name="CAT_ESTATUS">
+    <Key>
+      <PropertyRef Name="ID_CAT_ESTATUS" />
+    </Key>
+    <Property Name="ID_CAT_ESTATUS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DESC_ESTADO" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TECNICOes" Relationship="Self.FK_PRH_ESTATUS" FromRole="CAT_ESTATUS" ToRole="TECNICO" />
+  </EntityType>
+  <EntityType Name="CAT_PRIORIDAD">
+    <Key>
+      <PropertyRef Name="ID_CAT_PRIORIDAD" />
+    </Key>
+    <Property Name="ID_CAT_PRIORIDAD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DESC_PRIORIDAD" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TAREAs" Relationship="Self.FK_PRIORIDAD_TAREA" FromRole="CAT_PRIORIDAD" ToRole="TAREA" />
+  </EntityType>
+  <EntityType Name="CAT_PUESTO_TRABAJO">
+    <Key>
+      <PropertyRef Name="ID_CAT_PUESTO_TRABAJO" />
+    </Key>
+    <Property Name="ID_CAT_PUESTO_TRABAJO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DESC_PUESTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ID_CAT_DEPARTAMENTO" Type="Int32" />
+    <NavigationProperty Name="CAT_DEPARTAMENTO" Relationship="Self.FK_DEPARTAMENTO_PUESTO" FromRole="CAT_PUESTO_TRABAJO" ToRole="CAT_DEPARTAMENTO" />
+  </EntityType>
+  <EntityType Name="CAT_ROL">
+    <Key>
+      <PropertyRef Name="ID_CAT_ROL" />
+    </Key>
+    <Property Name="ID_CAT_ROL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DESC_ROL" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PLANILLA_RRHH" Relationship="Self.FK_CAT_ROL" FromRole="CAT_ROL" ToRole="PLANILLA_RRHH" />
+    <NavigationProperty Name="TECNICOes" Relationship="Self.FK_PRH_ROL" FromRole="CAT_ROL" ToRole="TECNICO" />
+  </EntityType>
+  <EntityType Name="CAT_TIP_REQUERIMIENTO">
+    <Key>
+      <PropertyRef Name="ID_CAT_TIP_REQUERIMIENTO" />
+    </Key>
+    <Property Name="ID_CAT_TIP_REQUERIMIENTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DESC_REQUERIMIENTO" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TAREAs" Relationship="Self.FK_TREQ_TAREA" FromRole="CAT_TIP_REQUERIMIENTO" ToRole="TAREA" />
+  </EntityType>
+  <EntityType Name="ESTADO">
+    <Key>
+      <PropertyRef Name="ID_ESTADO" />
+    </Key>
+    <Property Name="ID_ESTADO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DESC_ESTADO" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="REQUERIMIENTOes" Relationship="Self.FK_ESTADO" FromRole="ESTADO" ToRole="REQUERIMIENTO" />
+    <NavigationProperty Name="PROYECTOes" Relationship="Self.FK_ESTADO_ID" FromRole="ESTADO" ToRole="PROYECTO" />
+    <NavigationProperty Name="TAREAs" Relationship="Self.FK_ESTADO_TAREA" FromRole="ESTADO" ToRole="TAREA" />
+  </EntityType>
+  <EntityType Name="LOGIN">
+    <Key>
+      <PropertyRef Name="ID_LOGIN" />
+    </Key>
+    <Property Name="ID_LOGIN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_PLANILLA_RRHH" Type="Int32" Nullable="false" />
+    <Property Name="USUARIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CONTRASEÑA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PLANILLA_RRHH" Relationship="Self.FK_PLANTILLA_LOGIN" FromRole="LOGINS" ToRole="PLANILLA_RRHH" />
+  </EntityType>
+  <EntityType Name="PLANILLA_RRHH">
+    <Key>
+      <PropertyRef Name="ID_PLANILLA_RRHH" />
+    </Key>
+    <Property Name="ID_PLANILLA_RRHH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOMBRES" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="APELLIDOS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ID_CAT_PUESTO" Type="Int32" />
+    <Property Name="CORREO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ID_CAT_ROL" Type="Int32" />
+    <Property Name="TELEFONO" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CAT_ROL" Relationship="Self.FK_CAT_ROL" FromRole="PLANILLA_RRHH" ToRole="CAT_ROL" />
+    <NavigationProperty Name="LOGINS" Relationship="Self.FK_PLANTILLA_LOGIN" FromRole="PLANILLA_RRHH" ToRole="LOGINS" />
+    <NavigationProperty Name="TECNICOes" Relationship="Self.FK_PRH_ID" FromRole="PLANILLA_RRHH" ToRole="TECNICO" />
+    <NavigationProperty Name="TAREAs" Relationship="Self.FK_PRH_TAREA" FromRole="PLANILLA_RRHH" ToRole="TAREA" />
+  </EntityType>
+  <EntityType Name="PROYECTO">
+    <Key>
+      <PropertyRef Name="ID_PROYECTO" />
+    </Key>
+    <Property Name="ID_PROYECTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DESC_PROYECTO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="TECNICO_ID_TECNICO" Type="Int32" />
+    <Property Name="ESTADO_ID_ESTADO" Type="Int32" />
+    <Property Name="TIEMPO" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="ESTADO" Relationship="Self.FK_ESTADO_ID" FromRole="PROYECTO" ToRole="ESTADO" />
+    <NavigationProperty Name="REQUERIMIENTOes" Relationship="Self.FK_PROYECTO_ID" FromRole="PROYECTO" ToRole="REQUERIMIENTO" />
+    <NavigationProperty Name="TECNICO" Relationship="Self.FK_TECNICO_ID" FromRole="PROYECTO" ToRole="TECNICO" />
+  </EntityType>
+  <EntityType Name="REQUERIMIENTO">
+    <Key>
+      <PropertyRef Name="ID_TAREA" />
+    </Key>
+    <Property Name="ID_TAREA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DESC_TAREA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PROYECTO_ID_PROYECTO" Type="Int32" />
+    <Property Name="ESTADO_ID_ESTADO" Type="Int32" />
+    <NavigationProperty Name="ESTADO" Relationship="Self.FK_ESTADO" FromRole="REQUERIMIENTO" ToRole="ESTADO" />
+    <NavigationProperty Name="PROYECTO" Relationship="Self.FK_PROYECTO_ID" FromRole="REQUERIMIENTO" ToRole="PROYECTO" />
+  </EntityType>
+  <EntityType Name="TAREA">
+    <Key>
+      <PropertyRef Name="ID_TAREA" />
+    </Key>
+    <Property Name="ID_TAREA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_EMPLEADO" Type="Int32" />
+    <Property Name="ID_TIP_REQUERIMIENTO" Type="Int32" />
+    <Property Name="DESC_TAREA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ID_PRIORIDAD" Type="Int32" />
+    <Property Name="ID_ESTADO" Type="Int32" />
+    <Property Name="TIEMPO" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="CAT_PRIORIDAD" Relationship="Self.FK_PRIORIDAD_TAREA" FromRole="TAREA" ToRole="CAT_PRIORIDAD" />
+    <NavigationProperty Name="CAT_TIP_REQUERIMIENTO" Relationship="Self.FK_TREQ_TAREA" FromRole="TAREA" ToRole="CAT_TIP_REQUERIMIENTO" />
+    <NavigationProperty Name="ESTADO" Relationship="Self.FK_ESTADO_TAREA" FromRole="TAREA" ToRole="ESTADO" />
+    <NavigationProperty Name="PLANILLA_RRHH" Relationship="Self.FK_PRH_TAREA" FromRole="TAREA" ToRole="PLANILLA_RRHH" />
+  </EntityType>
+  <EntityType Name="TECNICO">
+    <Key>
+      <PropertyRef Name="ID_TECNICO" />
+    </Key>
+    <Property Name="ID_TECNICO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PRH_ID_PLANILLA_RRHH" Type="Int32" />
+    <Property Name="PRH_ID_CAT_ROL" Type="Int32" />
+    <Property Name="PRH_ID_CAT_ESTATUS" Type="Int32" />
+    <NavigationProperty Name="CAT_ESTATUS" Relationship="Self.FK_PRH_ESTATUS" FromRole="TECNICO" ToRole="CAT_ESTATUS" />
+    <NavigationProperty Name="CAT_ROL" Relationship="Self.FK_PRH_ROL" FromRole="TECNICO" ToRole="CAT_ROL" />
+    <NavigationProperty Name="PLANILLA_RRHH" Relationship="Self.FK_PRH_ID" FromRole="TECNICO" ToRole="PLANILLA_RRHH" />
+    <NavigationProperty Name="PROYECTOes" Relationship="Self.FK_TECNICO_ID" FromRole="TECNICO" ToRole="PROYECTO" />
+  </EntityType>
+  <Association Name="FK_DEPARTAMENTO_PUESTO">
+    <End Role="CAT_DEPARTAMENTO" Type="Self.CAT_DEPARTAMENTO" Multiplicity="0..1" />
+    <End Role="CAT_PUESTO_TRABAJO" Type="Self.CAT_PUESTO_TRABAJO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_DEPARTAMENTO">
+        <PropertyRef Name="ID_CAT_DEPARTAMENTO" />
+      </Principal>
+      <Dependent Role="CAT_PUESTO_TRABAJO">
+        <PropertyRef Name="ID_CAT_DEPARTAMENTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRH_ESTATUS">
+    <End Role="CAT_ESTATUS" Type="Self.CAT_ESTATUS" Multiplicity="0..1" />
+    <End Role="TECNICO" Type="Self.TECNICO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_ESTATUS">
+        <PropertyRef Name="ID_CAT_ESTATUS" />
+      </Principal>
+      <Dependent Role="TECNICO">
+        <PropertyRef Name="PRH_ID_CAT_ESTATUS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRIORIDAD_TAREA">
+    <End Role="CAT_PRIORIDAD" Type="Self.CAT_PRIORIDAD" Multiplicity="0..1" />
+    <End Role="TAREA" Type="Self.TAREA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_PRIORIDAD">
+        <PropertyRef Name="ID_CAT_PRIORIDAD" />
+      </Principal>
+      <Dependent Role="TAREA">
+        <PropertyRef Name="ID_PRIORIDAD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAT_ROL">
+    <End Role="CAT_ROL" Type="Self.CAT_ROL" Multiplicity="0..1" />
+    <End Role="PLANILLA_RRHH" Type="Self.PLANILLA_RRHH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_ROL">
+        <PropertyRef Name="ID_CAT_ROL" />
+      </Principal>
+      <Dependent Role="PLANILLA_RRHH">
+        <PropertyRef Name="ID_CAT_ROL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRH_ROL">
+    <End Role="CAT_ROL" Type="Self.CAT_ROL" Multiplicity="0..1" />
+    <End Role="TECNICO" Type="Self.TECNICO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_ROL">
+        <PropertyRef Name="ID_CAT_ROL" />
+      </Principal>
+      <Dependent Role="TECNICO">
+        <PropertyRef Name="PRH_ID_CAT_ROL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TREQ_TAREA">
+    <End Role="CAT_TIP_REQUERIMIENTO" Type="Self.CAT_TIP_REQUERIMIENTO" Multiplicity="0..1" />
+    <End Role="TAREA" Type="Self.TAREA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_TIP_REQUERIMIENTO">
+        <PropertyRef Name="ID_CAT_TIP_REQUERIMIENTO" />
+      </Principal>
+      <Dependent Role="TAREA">
+        <PropertyRef Name="ID_TIP_REQUERIMIENTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ESTADO">
+    <End Role="ESTADO" Type="Self.ESTADO" Multiplicity="0..1" />
+    <End Role="REQUERIMIENTO" Type="Self.REQUERIMIENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ESTADO">
+        <PropertyRef Name="ID_ESTADO" />
+      </Principal>
+      <Dependent Role="REQUERIMIENTO">
+        <PropertyRef Name="ESTADO_ID_ESTADO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ESTADO_ID">
+    <End Role="ESTADO" Type="Self.ESTADO" Multiplicity="0..1" />
+    <End Role="PROYECTO" Type="Self.PROYECTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ESTADO">
+        <PropertyRef Name="ID_ESTADO" />
+      </Principal>
+      <Dependent Role="PROYECTO">
+        <PropertyRef Name="ESTADO_ID_ESTADO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ESTADO_TAREA">
+    <End Role="ESTADO" Type="Self.ESTADO" Multiplicity="0..1" />
+    <End Role="TAREA" Type="Self.TAREA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ESTADO">
+        <PropertyRef Name="ID_ESTADO" />
+      </Principal>
+      <Dependent Role="TAREA">
+        <PropertyRef Name="ID_ESTADO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PLANTILLA_LOGIN">
+    <End Role="PLANILLA_RRHH" Type="Self.PLANILLA_RRHH" Multiplicity="1" />
+    <End Role="LOGINS" Type="Self.LOGIN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PLANILLA_RRHH">
+        <PropertyRef Name="ID_PLANILLA_RRHH" />
+      </Principal>
+      <Dependent Role="LOGINS">
+        <PropertyRef Name="ID_PLANILLA_RRHH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRH_ID">
+    <End Role="PLANILLA_RRHH" Type="Self.PLANILLA_RRHH" Multiplicity="0..1" />
+    <End Role="TECNICO" Type="Self.TECNICO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PLANILLA_RRHH">
+        <PropertyRef Name="ID_PLANILLA_RRHH" />
+      </Principal>
+      <Dependent Role="TECNICO">
+        <PropertyRef Name="PRH_ID_PLANILLA_RRHH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PRH_TAREA">
+    <End Role="PLANILLA_RRHH" Type="Self.PLANILLA_RRHH" Multiplicity="0..1" />
+    <End Role="TAREA" Type="Self.TAREA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PLANILLA_RRHH">
+        <PropertyRef Name="ID_PLANILLA_RRHH" />
+      </Principal>
+      <Dependent Role="TAREA">
+        <PropertyRef Name="ID_EMPLEADO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PROYECTO_ID">
+    <End Role="PROYECTO" Type="Self.PROYECTO" Multiplicity="0..1" />
+    <End Role="REQUERIMIENTO" Type="Self.REQUERIMIENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROYECTO">
+        <PropertyRef Name="ID_PROYECTO" />
+      </Principal>
+      <Dependent Role="REQUERIMIENTO">
+        <PropertyRef Name="PROYECTO_ID_PROYECTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TECNICO_ID">
+    <End Role="TECNICO" Type="Self.TECNICO" Multiplicity="0..1" />
+    <End Role="PROYECTO" Type="Self.PROYECTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TECNICO">
+        <PropertyRef Name="ID_TECNICO" />
+      </Principal>
+      <Dependent Role="PROYECTO">
+        <PropertyRef Name="TECNICO_ID_TECNICO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GestionProyectosEntitie" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CAT_DEPARTAMENTO" EntityType="Self.CAT_DEPARTAMENTO" />
+    <EntitySet Name="CAT_ESTATUS" EntityType="Self.CAT_ESTATUS" />
+    <EntitySet Name="CAT_PRIORIDAD" EntityType="Self.CAT_PRIORIDAD" />
+    <EntitySet Name="CAT_PUESTO_TRABAJO" EntityType="Self.CAT_PUESTO_TRABAJO" />
+    <EntitySet Name="CAT_ROL" EntityType="Self.CAT_ROL" />
+    <EntitySet Name="CAT_TIP_REQUERIMIENTO" EntityType="Self.CAT_TIP_REQUERIMIENTO" />
+    <EntitySet Name="ESTADOes" EntityType="Self.ESTADO" />
+    <EntitySet Name="LOGINS" EntityType="Self.LOGIN" />
+    <EntitySet Name="PLANILLA_RRHH" EntityType="Self.PLANILLA_RRHH" />
+    <EntitySet Name="PROYECTOes" EntityType="Self.PROYECTO" />
+    <EntitySet Name="REQUERIMIENTOes" EntityType="Self.REQUERIMIENTO" />
+    <EntitySet Name="TAREAs" EntityType="Self.TAREA" />
+    <EntitySet Name="TECNICOes" EntityType="Self.TECNICO" />
+    <AssociationSet Name="FK_DEPARTAMENTO_PUESTO" Association="Self.FK_DEPARTAMENTO_PUESTO">
+      <End Role="CAT_DEPARTAMENTO" EntitySet="CAT_DEPARTAMENTO" />
+      <End Role="CAT_PUESTO_TRABAJO" EntitySet="CAT_PUESTO_TRABAJO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRH_ESTATUS" Association="Self.FK_PRH_ESTATUS">
+      <End Role="CAT_ESTATUS" EntitySet="CAT_ESTATUS" />
+      <End Role="TECNICO" EntitySet="TECNICOes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRIORIDAD_TAREA" Association="Self.FK_PRIORIDAD_TAREA">
+      <End Role="CAT_PRIORIDAD" EntitySet="CAT_PRIORIDAD" />
+      <End Role="TAREA" EntitySet="TAREAs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAT_ROL" Association="Self.FK_CAT_ROL">
+      <End Role="CAT_ROL" EntitySet="CAT_ROL" />
+      <End Role="PLANILLA_RRHH" EntitySet="PLANILLA_RRHH" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRH_ROL" Association="Self.FK_PRH_ROL">
+      <End Role="CAT_ROL" EntitySet="CAT_ROL" />
+      <End Role="TECNICO" EntitySet="TECNICOes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TREQ_TAREA" Association="Self.FK_TREQ_TAREA">
+      <End Role="CAT_TIP_REQUERIMIENTO" EntitySet="CAT_TIP_REQUERIMIENTO" />
+      <End Role="TAREA" EntitySet="TAREAs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ESTADO" Association="Self.FK_ESTADO">
+      <End Role="ESTADO" EntitySet="ESTADOes" />
+      <End Role="REQUERIMIENTO" EntitySet="REQUERIMIENTOes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ESTADO_ID" Association="Self.FK_ESTADO_ID">
+      <End Role="ESTADO" EntitySet="ESTADOes" />
+      <End Role="PROYECTO" EntitySet="PROYECTOes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ESTADO_TAREA" Association="Self.FK_ESTADO_TAREA">
+      <End Role="ESTADO" EntitySet="ESTADOes" />
+      <End Role="TAREA" EntitySet="TAREAs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PLANTILLA_LOGIN" Association="Self.FK_PLANTILLA_LOGIN">
+      <End Role="PLANILLA_RRHH" EntitySet="PLANILLA_RRHH" />
+      <End Role="LOGINS" EntitySet="LOGINS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRH_ID" Association="Self.FK_PRH_ID">
+      <End Role="PLANILLA_RRHH" EntitySet="PLANILLA_RRHH" />
+      <End Role="TECNICO" EntitySet="TECNICOes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PRH_TAREA" Association="Self.FK_PRH_TAREA">
+      <End Role="PLANILLA_RRHH" EntitySet="PLANILLA_RRHH" />
+      <End Role="TAREA" EntitySet="TAREAs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PROYECTO_ID" Association="Self.FK_PROYECTO_ID">
+      <End Role="PROYECTO" EntitySet="PROYECTOes" />
+      <End Role="REQUERIMIENTO" EntitySet="REQUERIMIENTOes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TECNICO_ID" Association="Self.FK_TECNICO_ID">
+      <End Role="TECNICO" EntitySet="TECNICOes" />
+      <End Role="PROYECTO" EntitySet="PROYECTOes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GestionProyectosModelStoreContainer" CdmEntityContainer="GestionProyectosEntities">
+    <EntitySetMapping Name="CAT_DEPARTAMENTO">
+      <EntityTypeMapping TypeName="GestionProyectosModel.CAT_DEPARTAMENTO">
+        <MappingFragment StoreEntitySet="CAT_DEPARTAMENTO">
+          <ScalarProperty Name="ID_CAT_DEPARTAMENTO" ColumnName="ID_CAT_DEPARTAMENTO" />
+          <ScalarProperty Name="DESC_DEPARTAMENTO" ColumnName="DESC_DEPARTAMENTO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAT_ESTATUS">
+      <EntityTypeMapping TypeName="GestionProyectosModel.CAT_ESTATUS">
+        <MappingFragment StoreEntitySet="CAT_ESTATUS">
+          <ScalarProperty Name="ID_CAT_ESTATUS" ColumnName="ID_CAT_ESTATUS" />
+          <ScalarProperty Name="DESC_ESTADO" ColumnName="DESC_ESTADO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAT_PRIORIDAD">
+      <EntityTypeMapping TypeName="GestionProyectosModel.CAT_PRIORIDAD">
+        <MappingFragment StoreEntitySet="CAT_PRIORIDAD">
+          <ScalarProperty Name="ID_CAT_PRIORIDAD" ColumnName="ID_CAT_PRIORIDAD" />
+          <ScalarProperty Name="DESC_PRIORIDAD" ColumnName="DESC_PRIORIDAD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAT_PUESTO_TRABAJO">
+      <EntityTypeMapping TypeName="GestionProyectosModel.CAT_PUESTO_TRABAJO">
+        <MappingFragment StoreEntitySet="CAT_PUESTO_TRABAJO">
+          <ScalarProperty Name="ID_CAT_PUESTO_TRABAJO" ColumnName="ID_CAT_PUESTO_TRABAJO" />
+          <ScalarProperty Name="DESC_PUESTO" ColumnName="DESC_PUESTO" />
+          <ScalarProperty Name="ID_CAT_DEPARTAMENTO" ColumnName="ID_CAT_DEPARTAMENTO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAT_ROL">
+      <EntityTypeMapping TypeName="GestionProyectosModel.CAT_ROL">
+        <MappingFragment StoreEntitySet="CAT_ROL">
+          <ScalarProperty Name="ID_CAT_ROL" ColumnName="ID_CAT_ROL" />
+          <ScalarProperty Name="DESC_ROL" ColumnName="DESC_ROL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAT_TIP_REQUERIMIENTO">
+      <EntityTypeMapping TypeName="GestionProyectosModel.CAT_TIP_REQUERIMIENTO">
+        <MappingFragment StoreEntitySet="CAT_TIP_REQUERIMIENTO">
+          <ScalarProperty Name="ID_CAT_TIP_REQUERIMIENTO" ColumnName="ID_CAT_TIP_REQUERIMIENTO" />
+          <ScalarProperty Name="DESC_REQUERIMIENTO" ColumnName="DESC_REQUERIMIENTO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ESTADOes">
+      <EntityTypeMapping TypeName="GestionProyectosModel.ESTADO">
+        <MappingFragment StoreEntitySet="ESTADO">
+          <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+          <ScalarProperty Name="DESC_ESTADO" ColumnName="DESC_ESTADO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LOGINS">
+      <EntityTypeMapping TypeName="GestionProyectosModel.LOGIN">
+        <MappingFragment StoreEntitySet="LOGINS">
+          <ScalarProperty Name="ID_LOGIN" ColumnName="ID_LOGIN" />
+          <ScalarProperty Name="ID_PLANILLA_RRHH" ColumnName="ID_PLANILLA_RRHH" />
+          <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+          <ScalarProperty Name="CONTRASEÑA" ColumnName="CONTRASEÑA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PLANILLA_RRHH">
+      <EntityTypeMapping TypeName="GestionProyectosModel.PLANILLA_RRHH">
+        <MappingFragment StoreEntitySet="PLANILLA_RRHH">
+          <ScalarProperty Name="ID_PLANILLA_RRHH" ColumnName="ID_PLANILLA_RRHH" />
+          <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
+          <ScalarProperty Name="APELLIDOS" ColumnName="APELLIDOS" />
+          <ScalarProperty Name="ID_CAT_PUESTO" ColumnName="ID_CAT_PUESTO" />
+          <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+          <ScalarProperty Name="ID_CAT_ROL" ColumnName="ID_CAT_ROL" />
+          <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PROYECTOes">
+      <EntityTypeMapping TypeName="GestionProyectosModel.PROYECTO">
+        <MappingFragment StoreEntitySet="PROYECTO">
+          <ScalarProperty Name="ID_PROYECTO" ColumnName="ID_PROYECTO" />
+          <ScalarProperty Name="DESC_PROYECTO" ColumnName="DESC_PROYECTO" />
+          <ScalarProperty Name="TECNICO_ID_TECNICO" ColumnName="TECNICO_ID_TECNICO" />
+          <ScalarProperty Name="ESTADO_ID_ESTADO" ColumnName="ESTADO_ID_ESTADO" />
+          <ScalarProperty Name="TIEMPO" ColumnName="TIEMPO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="REQUERIMIENTOes">
+      <EntityTypeMapping TypeName="GestionProyectosModel.REQUERIMIENTO">
+        <MappingFragment StoreEntitySet="REQUERIMIENTO">
+          <ScalarProperty Name="ID_TAREA" ColumnName="ID_TAREA" />
+          <ScalarProperty Name="DESC_TAREA" ColumnName="DESC_TAREA" />
+          <ScalarProperty Name="PROYECTO_ID_PROYECTO" ColumnName="PROYECTO_ID_PROYECTO" />
+          <ScalarProperty Name="ESTADO_ID_ESTADO" ColumnName="ESTADO_ID_ESTADO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TAREAs">
+      <EntityTypeMapping TypeName="GestionProyectosModel.TAREA">
+        <MappingFragment StoreEntitySet="TAREA">
+          <ScalarProperty Name="ID_TAREA" ColumnName="ID_TAREA" />
+          <ScalarProperty Name="ID_EMPLEADO" ColumnName="ID_EMPLEADO" />
+          <ScalarProperty Name="ID_TIP_REQUERIMIENTO" ColumnName="ID_TIP_REQUERIMIENTO" />
+          <ScalarProperty Name="DESC_TAREA" ColumnName="DESC_TAREA" />
+          <ScalarProperty Name="ID_PRIORIDAD" ColumnName="ID_PRIORIDAD" />
+          <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+          <ScalarProperty Name="TIEMPO" ColumnName="TIEMPO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TECNICOes">
+      <EntityTypeMapping TypeName="GestionProyectosModel.TECNICO">
+        <MappingFragment StoreEntitySet="TECNICO">
+          <ScalarProperty Name="ID_TECNICO" ColumnName="ID_TECNICO" />
+          <ScalarProperty Name="PRH_ID_PLANILLA_RRHH" ColumnName="PRH_ID_PLANILLA_RRHH" />
+          <ScalarProperty Name="PRH_ID_CAT_ROL" ColumnName="PRH_ID_CAT_ROL" />
+          <ScalarProperty Name="PRH_ID_CAT_ESTATUS" ColumnName="PRH_ID_CAT_ESTATUS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

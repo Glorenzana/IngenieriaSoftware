@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dfe9d2daef44455ebd6aab06ce0d5534" Name="Diagram1">
+        <EntityTypeShape EntityType="GestionProyectosModel.CAT_DEPARTAMENTO" Width="1.5" PointX="8.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionProyectosModel.CAT_ESTATUS" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionProyectosModel.CAT_PRIORIDAD" Width="1.5" PointX="6" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionProyectosModel.CAT_PUESTO_TRABAJO" Width="1.5" PointX="11" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionProyectosModel.CAT_ROL" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionProyectosModel.CAT_TIP_REQUERIMIENTO" Width="1.5" PointX="6" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionProyectosModel.ESTADO" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionProyectosModel.LOGIN" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionProyectosModel.PLANILLA_RRHH" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionProyectosModel.PROYECTO" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionProyectosModel.REQUERIMIENTO" Width="1.5" PointX="9.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionProyectosModel.TAREA" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionProyectosModel.TECNICO" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="GestionProyectosModel.FK_DEPARTAMENTO_PUESTO" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionProyectosModel.FK_PRH_ESTATUS" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionProyectosModel.FK_PRIORIDAD_TAREA" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionProyectosModel.FK_CAT_ROL" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionProyectosModel.FK_PRH_ROL" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionProyectosModel.FK_TREQ_TAREA" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionProyectosModel.FK_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionProyectosModel.FK_ESTADO_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionProyectosModel.FK_ESTADO_TAREA" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionProyectosModel.FK_PLANTILLA_LOGIN" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionProyectosModel.FK_PRH_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionProyectosModel.FK_PRH_TAREA" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionProyectosModel.FK_PROYECTO_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionProyectosModel.FK_TECNICO_ID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
